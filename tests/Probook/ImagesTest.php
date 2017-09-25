@@ -10,8 +10,6 @@ namespace Tests\Probook;
 
 use Tests\TestCase;
 use App\Http\Controllers\ImagesController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use App\Http\Controllers\DateHelper;
 
 class ImagesTest extends TestCase
 {

@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-	//echo Hash::make('agent');
-    return view('welcome');
-});
+//echo Hash::make('agent');
+
+# Home
+Route::get('/', 'HomeController@index');
+Route::get('search_list', 'HomeController@searchList');
+Route::post('search', 'HomeController@search');
 
 # Property
 Route::post('property/add', 'PropertyController@add');

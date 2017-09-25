@@ -59,4 +59,82 @@ class BookModel
         }
 
     }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getDistinctCountry()
+    {
+        try {
+            return \DB::table('property')->distinct()->get(['country']);
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getDistinctState()
+    {
+        try {
+            return \DB::table('property')->distinct()->get(['state']);
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getDistinctPropertyType()
+    {
+        try {
+            return \DB::table('property')->distinct()->get(['type']);
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getDistinctPrice()
+    {
+        try {
+            return \DB::table('property')->distinct()->get(['price']);
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+
+    }
+
+    public function searchProperties(Array $field)
+    {
+        try {
+            $properties = \DB::table('property')
+                ->select(['property.*', 'user.email', 'images.path'])
+                ->join('user', 'property.id_user', '=', 'user.id')
+                ->join('images', 'property.id', '=', 'images.id_property')
+                ->where('country', '=', $field['country'])
+                ->where('bedroom', '=', $field['bedroom'])
+                ->where('state', '=', $field['state'])
+                ->where('bathroom', '=', $field['bathroom'])
+                ->where('pets', '=', $field['pets'])
+                ->where('property.type', '=', $field['type'])
+                ->where('price', '>=', $field['minprice'])
+                ->get();
+
+            return $properties;
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+    }
 }
