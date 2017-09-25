@@ -19,3 +19,6 @@ Route::get('/', function () {
 # Property
 Route::post('property/add', 'PropertyController@add');
 Route::delete('property/{id}', 'PropertyController@delete');
+
+# Images
+Route::post('images/{property_id}', 'ImagesController@add');
