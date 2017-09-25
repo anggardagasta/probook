@@ -27,4 +27,14 @@ class BookModel
         }
 
     }
+
+    public function deleteProperty($id)
+    {
+        try {
+            return \DB::table('property')->where('id', '=', $id)->delete();;
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+
+    }
 }

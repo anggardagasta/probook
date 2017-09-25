@@ -35,4 +35,25 @@ class PropertyController extends BaseController
 
         return response()->json($result);
     }
+
+    public function delete($id)
+    {
+
+        try {
+            $this->model->deleteProperty($id);
+            $result = [
+                "Success" => [
+                    "message" => "Property {$id} is deleted successfully"
+                ]
+            ];
+        } catch (\Exception $ex) {
+            $result = [
+                'Error' => [
+                    'message' => $ex->getMessage()
+                ]
+            ];
+        }
+
+        return response()->json($result);
+    }
 }

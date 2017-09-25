@@ -16,4 +16,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+# Property
 Route::post('property/add', 'PropertyController@add');
+Route::delete('property/{id}', 'PropertyController@delete');

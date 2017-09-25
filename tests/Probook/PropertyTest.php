@@ -65,4 +65,42 @@ class PropertyTest extends TestCase
                 ),
         ), $actual);
     }
+
+    public function testDeleteProperty()
+    {
+
+        $model = \Mockery::mock('App\Model\BookModel');
+        $model->shouldReceive('deleteProperty')->andReturn(true);
+
+        $controller = new PropertyController($model);
+        $result = $controller->delete(1);
+
+        $actual = (json_decode(json_encode($result), true))['original'];
+
+        $this->assertEquals(array(
+            'Success' =>
+                array(
+                    'message' => 'Property 1 is deleted successfully',
+                ),
+        ), $actual);
+    }
+
+    public function testDeletePropertyButFail()
+    {
+
+        $model = \Mockery::mock('App\Model\BookModel');
+        $model->shouldReceive('deleteProperty')->andThrow(new \Exception('fail to delete'));
+
+        $controller = new PropertyController($model);
+        $result = $controller->delete(1);
+
+        $actual = (json_decode(json_encode($result), true))['original'];
+
+        $this->assertEquals(array(
+            'Error' =>
+                array(
+                    'message' => 'fail to delete',
+                ),
+        ), $actual);
+    }
 }
