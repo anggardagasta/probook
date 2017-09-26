@@ -115,19 +115,46 @@ class HomeController
     {
         $checkEmail = $this->model->checkEmail($request->input('email'))->toArray();
         if ($checkEmail) {
-            return redirect()->back()->with('error','Email is exist. Try another email.');
+            return redirect()->back()->with('error', 'Email is exist. Try another email.');
         } else {
-            if ($request->input('password1') == $request->input('password1')) {
+            if ($request->input('password1') == $request->input('password2')) {
                 $field['email'] = $request->input('email');
-                $field['password'] = $this->hashMake($request->input('email'));
+                $field['password'] = $this->hashMake($request->input('password1'));
                 $this->model->insertTravellerUser($field);
-                return redirect()->back()->with('message','Signup is success. Waiting admin to verified your account.');
+                return redirect()->back()->with('message', 'Signup is success. Waiting admin to verified your account.');
             } else {
                 //password1 & password2 didn't match
-                return redirect()->back()->with("error","Password didn't match");
+                return redirect()->back()->with("error", "Password didn't match");
             }
 
         }
+    }
+
+    public function signin(Request $request)
+    {
+        $credentials = $request->only(['email', 'password']);
+        if (\Auth::attempt($credentials)) {
+
+            if (\Auth::user()->verified == 'no') {
+
+                \Auth::logout();
+                return 'Please activate your account';
+            } else {
+                if (\Auth::user()->type == 'admin') {
+                    return 'You are admin';
+                } else {
+                    return redirect()->route('home');
+                }
+            }
+        } else {
+            return redirect()->back()->with("error", "Email and Password didn't match");
+        }
+    }
+
+    public function signout()
+    {
+        \Auth::logout();
+        return redirect()->route('home');
     }
 
     private function hashMake($input)

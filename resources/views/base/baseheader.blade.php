@@ -52,9 +52,25 @@
                         <li><a href="{{URL::to('search_list')}}">Search (List View)</a></li>
                     </ul>
                 </li>
+                <?php
+                    if (\Auth::user()) {
+                ?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{\Auth::user()->email}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{URL::to('signout')}}">Signout</a></li>
+                    </ul>
+                </li>
+                <?php
+                    } else {
+                ?>
                 <li><a href="#modal-signin" class="signin" data-toggle="modal" data-target="#modal-signin">Sign in</a>
                 </li>
                 <li><a href="#" class="signup" data-toggle="modal" data-target="#modal-signup">Sign up</a></li>
+                <?php
+                }
+                ?>
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
@@ -124,28 +140,28 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">Sign in</h4>
                 </div>
-                <div class="modal-body">
-                    <form role="form">
+                <form role="form" method="POST" action="signin">
+                    <div class="modal-body">
                         <div class="form-group">
                             <label for="emailAddress">Email address</label>
-                            <input type="email" class="form-control input-lg" placeholder="Enter email">
+                            <input type="email" class="form-control input-lg" placeholder="Enter email" name="email">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control input-lg" placeholder="Password">
+                            <input type="password" class="form-control input-lg" placeholder="Password" name="password">
                         </div>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" name="forget"> Keep me logged in
                             </label>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <p>Don't have account ? <a href="#modal-signup" data-toggle="modal" data-target="#modal-signup">Sign
-                            up here.</a></p>
-                    <input type="submit" class="btn btn-warning btn-block btn-lg" value="Sign in">
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <p>Don't have account ? <a href="#modal-signup" data-toggle="modal" data-target="#modal-signup">Sign
+                                up here.</a></p>
+                        <input type="submit" class="btn btn-warning btn-block btn-lg" value="Sign in">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -161,25 +177,28 @@
                     <h4 class="modal-title">Sign up</h4>
                 </div>
                 <form role="form" method="POST" action="signup">
-                    <div class="modal-body">                        
+                    <div class="modal-body">
                         <div class="form-group">
                             <input type="email" class="form-control input-lg" placeholder="Enter email" name="email">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control input-lg" placeholder="Password" name="password1">
+                            <input type="password" class="form-control input-lg" placeholder="Password"
+                                   name="password1">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control input-lg" placeholder="Confirm Password" name="password2">
+                            <input type="password" class="form-control input-lg" placeholder="Confirm Password"
+                                   name="password2">
                         </div>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" name="agree"> Agree to our <a href="#">terms of use</a> and <a
                                         href="#">privacy policy</a>
                             </label>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <p>Already have account ? <a href="#modal-signin" data-toggle="modal" data-target="#modal-signin">Sign
+                        <p>Already have account ? <a href="#modal-signin" data-toggle="modal"
+                                                     data-target="#modal-signin">Sign
                                 in here.</a></p>
                         <input type="submit" class="btn btn-warning btn-block btn-lg" value="Sign up">
                     </div>

@@ -14,11 +14,15 @@
 //echo Hash::make('agent');
 
 # Home
-Route::get('/', 'HomeController@index');
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('search_list', 'HomeController@searchList');
 Route::post('search', 'HomeController@search');
 # Signup
 Route::post('signup', 'HomeController@signup');
+# Signin
+Route::post('signin', 'HomeController@signin');
+# Signout
+Route::get('signout', 'HomeController@signout');
 
 # Property
 Route::post('property/add', 'PropertyController@add');
