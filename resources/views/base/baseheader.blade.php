@@ -60,6 +60,12 @@
     </div><!-- /.container -->
 </nav>
 <!-- end:navbar -->
+@if(Session::has('error'))
+    <div class="alert alert-danger" align="center">{{Session::get('error')}}</div>
+@endif
+@if(Session::has('message'))
+    <div class="alert alert-success" align="center">{{Session::get('message')}}</div>
+@endif
 
 @yield('content')
 
@@ -154,30 +160,30 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">Sign up</h4>
                 </div>
-                <div class="modal-body">
-                    <form role="form">
+                <form role="form" method="POST" action="signup">
+                    <div class="modal-body">                        
                         <div class="form-group">
-                            <input type="email" class="form-control input-lg" placeholder="Enter email">
+                            <input type="email" class="form-control input-lg" placeholder="Enter email" name="email">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control input-lg" placeholder="Password">
+                            <input type="password" class="form-control input-lg" placeholder="Password" name="password1">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control input-lg" placeholder="Confirm Password">
+                            <input type="password" class="form-control input-lg" placeholder="Confirm Password" name="password2">
                         </div>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" name="agree"> Agree to our <a href="#">terms of use</a> and <a
                                         href="#">privacy policy</a>
                             </label>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <p>Already have account ? <a href="#modal-signin" data-toggle="modal" data-target="#modal-signin">Sign
-                            in here.</a></p>
-                    <input type="submit" class="btn btn-warning btn-block btn-lg" value="Sign up">
-                </div>
+                        </div>                        
+                    </div>
+                    <div class="modal-footer">
+                        <p>Already have account ? <a href="#modal-signin" data-toggle="modal" data-target="#modal-signin">Sign
+                                in here.</a></p>
+                        <input type="submit" class="btn btn-warning btn-block btn-lg" value="Sign up">
+                    </div>
+                </form>
             </div>
         </div>
     </div>

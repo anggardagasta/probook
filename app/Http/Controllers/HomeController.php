@@ -110,4 +110,28 @@ class HomeController
         $properties = $this->getProperties($request->all());
         return view('searchresult', ['properties' => $properties]);
     }
+
+    public function signup(Request $request)
+    {
+        $checkEmail = $this->model->checkEmail($request->input('email'))->toArray();
+        if ($checkEmail) {
+            return redirect()->back()->with('error','Email is exist. Try another email.');
+        } else {
+            if ($request->input('password1') == $request->input('password1')) {
+                $field['email'] = $request->input('email');
+                $field['password'] = $this->hashMake($request->input('email'));
+                $this->model->insertTravellerUser($field);
+                return redirect()->back()->with('message','Signup is success. Waiting admin to verified your account.');
+            } else {
+                //password1 & password2 didn't match
+                return redirect()->back()->with("error","Password didn't match");
+            }
+
+        }
+    }
+
+    private function hashMake($input)
+    {
+        return \Hash::make($input);
+    }
 }

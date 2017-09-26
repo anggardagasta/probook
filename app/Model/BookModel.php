@@ -71,7 +71,6 @@ class BookModel
         } catch (\Exception $ex) {
             throw $ex;
         }
-
     }
 
     /**
@@ -133,6 +132,30 @@ class BookModel
                 ->get();
 
             return $properties;
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function insertTravellerUser($field)
+    {
+        try {
+            $field['verified'] = 'no';
+            $field['type'] = 'traveller';
+            $field['created_at'] = \date("Y-m-d H:i:s");
+            $field['updated_at'] = \date("Y-m-d H:i:s");
+            return \DB::table('user')->insert($field);
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function checkEmail($email)
+    {
+        try {
+            return \DB::table('user')
+                ->where('email', '=', $email)
+                ->get(['email']);
         } catch (\Exception $ex) {
             throw $ex;
         }

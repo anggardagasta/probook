@@ -17,6 +17,8 @@
 Route::get('/', 'HomeController@index');
 Route::get('search_list', 'HomeController@searchList');
 Route::post('search', 'HomeController@search');
+# Signup
+Route::post('signup', 'HomeController@signup');
 
 # Property
 Route::post('property/add', 'PropertyController@add');
