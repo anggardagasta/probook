@@ -34,6 +34,10 @@
                     <i class="fa fa-fw fa-table"></i>
                     <span class="nav-link-text">User</span>
                 </a>
+                <a class="nav-link" href="{{URL::to('admin/book')}}">
+                    <i class="fa fa-fw fa-table"></i>
+                    <span class="nav-link-text">Book</span>
+                </a>
             </li>
         </ul>
         <ul class="navbar-nav sidenav-toggler">

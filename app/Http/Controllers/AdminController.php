@@ -24,6 +24,11 @@ class AdminController implements ControllerInterface
         }
     }
 
+    /**
+     * get all users data
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function user()
     {
         $users = [];
@@ -34,5 +39,22 @@ class AdminController implements ControllerInterface
         }
 
         return view('admin.user', ['users' => $users]);
+    }
+
+    /**
+     * get all booking data
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function book()
+    {
+        $books = [];
+        try {
+            $books = $this->model->getAllBooks();
+        } catch (\Exception $ex) {
+            syslog(LOG_ERR, "[ALL-BOOKS] Error - {$ex->getMessage()}");
+        }
+
+        return view('admin.book', ['books' => $books]);
     }
 }

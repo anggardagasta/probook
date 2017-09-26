@@ -31,6 +31,7 @@ Route::group(['before' => 'guest'], function () {
 # Admin
 Route::group(['before' => 'auth'], function () {
     Route::get('admin/user', ['as' => 'admin_user', 'uses' => 'AdminController@user']);
+    Route::get('admin/book', ['as' => 'admin_book', 'uses' => 'AdminController@book']);
 });
 
 # Property

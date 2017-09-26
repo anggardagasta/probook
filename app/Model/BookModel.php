@@ -176,4 +176,23 @@ class BookModel
         }
 
     }
+
+    /**
+     * Get all book
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getAllBooks()
+    {
+        try {
+            return \DB::table('book')
+                ->join('user', 'book.id_user', '=', 'user.id')
+                ->join('property', 'book.id_property', '=', 'property.id')
+                ->get();
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+
+    }
 }
