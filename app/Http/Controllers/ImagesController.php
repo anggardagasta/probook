@@ -12,7 +12,7 @@ use App\Model\BookModel;
 use Illuminate\Http\Request;
 
 
-class ImagesController
+class ImagesController implements ControllerInterface
 {
     private $model;
     private $dateHelper;

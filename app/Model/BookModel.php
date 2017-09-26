@@ -160,4 +160,20 @@ class BookModel
             throw $ex;
         }
     }
+
+    /**
+     * Get all users
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getUsers()
+    {
+        try {
+            return \DB::table('user')->get(['id', 'email', 'type','verified', 'updated_at']);
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+
+    }
 }

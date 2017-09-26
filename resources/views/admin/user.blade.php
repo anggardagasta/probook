@@ -10,31 +10,43 @@
     <!-- Example DataTables Card-->
     <div class="card mb-3">
         <div class="card-header">
-            <i class="fa fa-table"></i> Data Table Example
+            <i class="fa fa-table"></i> Data User
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
+                        <th>Id</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th>Verified</th>
+                        <th>Last Updated</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
+                        @foreach ($users as $user)
+                            <td>{{$user->id}}</td>
+                            <td>{{$user->email}}</td>
+                            <td>{{$user->type}}</td>
+                            @if ($user->verified=='no')
+                                <td>
+                                    <a href="{{URL::to('verified',$user->id)}}" class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-remove"></span>&nbsp;No
+                                    </a>
+                                </td>
+                            @else
+                                <td>
+                                    <button class="btn btn-success">
+                                        <span class="glyphicon glyphicon-ok"></span>&nbsp;Yes&nbsp;
+                                    </button>
+                                </td>
+                            @endif
+                            <td>{{$user->updated_at}}</td>
                     </tr>
                     </tbody>
+                    @endforeach
                 </table>
             </div>
         </div>

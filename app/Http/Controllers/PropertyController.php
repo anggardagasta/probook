@@ -6,7 +6,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Model\BookModel;
 
-class PropertyController extends BaseController
+class PropertyController extends BaseController implements ControllerInterface
 {
     private $model;
 

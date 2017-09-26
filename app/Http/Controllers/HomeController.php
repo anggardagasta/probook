@@ -11,8 +11,7 @@ namespace App\Http\Controllers;
 use App\Model\BookModel;
 use Illuminate\Http\Request;
 
-
-class HomeController
+class HomeController implements ControllerInterface
 {
     private $model;
 
@@ -141,7 +140,7 @@ class HomeController
                 return 'Please activate your account';
             } else {
                 if (\Auth::user()->type == 'admin') {
-                    return 'You are admin';
+                    return redirect()->route('admin_user');
                 } else {
                     return redirect()->route('home');
                 }

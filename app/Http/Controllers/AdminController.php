@@ -8,11 +8,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\BookModel;
 
-class AdminController
+
+class AdminController implements ControllerInterface
 {
+    private $model;
+
+    public function __construct(BookModel $model = null)
+    {
+        if (is_null($model)) {
+            $this->model = new BookModel();
+        } else {
+            $this->model = $model;
+        }
+    }
+
     public function user()
     {
-        return view('admin.user');
+        $users = [];
+        try {
+            $users = $this->model->getUsers();
+        } catch (\Exception $ex) {
+            syslog(LOG_ERR, "[ALL-USERS] Error - {$ex->getMessage()}");
+        }
+
+        return view('admin.user', ['users' => $users]);
     }
 }

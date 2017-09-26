@@ -47,7 +47,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-fw fa-user"></i>anggarda.gasta.p@gmail.com
+                    <i class="fa fa-fw fa-user"></i>{{\Auth::user()->email}}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="alertsDropdown">
                     <a class="nav-link" data-toggle="modal" data-target="#exampleModal" style="color:#212529">Logout</a>
@@ -87,7 +87,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{{URL::to('home')}}">Logout</a>
+                    <a class="btn btn-primary" href="{{URL::to('signout')}}">Logout</a>
                 </div>
             </div>
         </div>
