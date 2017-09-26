@@ -24,6 +24,9 @@ Route::post('signin', 'HomeController@signin');
 # Signout
 Route::get('signout', 'HomeController@signout');
 
+# Admin
+Route::get('admin/user', 'AdminController@user');
+
 # Property
 Route::post('property/add', 'PropertyController@add');
 Route::delete('property/{id}', 'PropertyController@delete');
