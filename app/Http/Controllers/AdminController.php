@@ -25,12 +25,31 @@ class AdminController implements ControllerInterface
     }
 
     /**
+     * redirect if user except admin is trying to access this page
+     *
+     */
+    private function needRedirect()
+    {
+        $result = false;
+        if (\Auth::user()) {
+            if (\Auth::user()->type != 'admin') {
+                $result = true;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * get all users data
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function user()
     {
+        if ($this->needRedirect()) {
+            return redirect()->route('home');
+        }
         $users = [];
         try {
             $users = $this->model->getUsers();
@@ -48,6 +67,9 @@ class AdminController implements ControllerInterface
      */
     public function book()
     {
+        if ($this->needRedirect()) {
+            return redirect()->route('home');
+        }
         $books = [];
         try {
             $books = $this->model->getAllBooks();

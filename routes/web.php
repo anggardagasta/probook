@@ -13,7 +13,7 @@
 
 //echo Hash::make('agent');
 
-
+Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('search_list', 'HomeController@searchList');
 Route::post('search', 'HomeController@search');
 # Signup
@@ -22,16 +22,18 @@ Route::post('signup', 'HomeController@signup');
 # Signout
 Route::get('signout', 'HomeController@signout');
 
-Route::group(['before' => 'guest'], function () {
+Route::group(['middleware' => 'guest'], function () {
     # Home
-    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+    Route::get('/', ['as' => 'login', 'uses' => 'HomeController@index']);
     # Signin
     Route::post('signin', 'HomeController@signin');
 });
 # Admin
-Route::group(['before' => 'auth'], function () {
-    Route::get('admin/user', ['as' => 'admin_user', 'uses' => 'AdminController@user']);
-    Route::get('admin/book', ['as' => 'admin_book', 'uses' => 'AdminController@book']);
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('user', ['as' => 'admin_user', 'uses' => 'AdminController@user']);
+        Route::get('book', ['as' => 'admin_book', 'uses' => 'AdminController@book']);
+    });
 });
 
 # Property

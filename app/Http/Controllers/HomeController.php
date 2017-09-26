@@ -142,7 +142,7 @@ class HomeController implements ControllerInterface
                 if (\Auth::user()->type == 'admin') {
                     return redirect()->route('admin_user');
                 } else {
-                    return redirect()->route('home');
+                    return redirect()->route('login');
                 }
             }
         } else {
@@ -153,7 +153,7 @@ class HomeController implements ControllerInterface
     public function signout()
     {
         \Auth::logout();
-        return redirect()->route('home');
+        return redirect()->route('login');
     }
 
     private function hashMake($input)
