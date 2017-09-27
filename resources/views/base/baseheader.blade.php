@@ -46,12 +46,12 @@
         <div class="collapse navbar-collapse" id="navbar-top">
             <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="{{URL::to('/')}}">Home</a></li>
-                <li class="dropdown">
+                <!--li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Property <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{URL::to('search_list')}}">Search (List View)</a></li>
                     </ul>
-                </li>
+                </li-->
                 <?php
                     if (\Auth::user()) {
                 ?>

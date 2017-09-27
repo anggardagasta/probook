@@ -9,11 +9,12 @@
 namespace App\Http\Controllers;
 
 use App\Model\BookModel;
-
+use Illuminate\Http\Request;
 
 class AdminController implements ControllerInterface
 {
     private $model;
+    private $dateHelper;
 
     public function __construct(BookModel $model = null)
     {
@@ -78,5 +79,51 @@ class AdminController implements ControllerInterface
         }
 
         return view('admin.book', ['books' => $books]);
+    }
+
+    public function bookNow(Request $request)
+    {
+        try {
+            if ($this->dateHelper) {
+                $currentDate = $this->dateHelper->currentDate();
+            } else {
+                $currentDate = (new DateHelper())->currentDate();
+            }
+            $field = $request->all();
+            $field['book_date'] = $currentDate->format('Y-m-d');
+            $this->model->insertBooking($field);
+
+            $user = $this->model->getUserById($request->input('id_user'));
+            $property = $this->model->getPropertyById($request->input('id_property'));
+            $agent = $this->model->getUserById($property->id_user);
+
+            $datetime1 = new \DateTime($field['start_date']);
+            $datetime2 = new \DateTime($field['end_date']);
+            $interval = $datetime1->diff($datetime2);
+            $priceCalculation = $interval->days * $property->price;
+
+            $detail = [
+                "email" => $user->email,
+                "property_name" => $property->title,
+                "location" => "{$property->state}, {$property->country}",
+                "start_date" => $request->input("start_date"),
+                "end_date" => $request->input("end_date"),
+                "book_date" => $currentDate->format("Y-m-d"),
+                "agent_email" => $agent->email,
+                "price" => $priceCalculation
+            ];
+
+            return view('print', ['detail' => $detail]);
+        } catch (\Exception $ex) {
+            syslog(LOG_ERR, "Error booking - {$ex->getMessage()}");
+        }
+    }
+
+    /**
+     * @param DateHelper $dateHelper
+     */
+    public function setDateHelper(DateHelper $dateHelper)
+    {
+        $this->dateHelper = $dateHelper;
     }
 }

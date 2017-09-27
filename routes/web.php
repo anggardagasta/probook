@@ -42,3 +42,6 @@ Route::delete('property/{id}', 'PropertyController@delete');
 
 # Images
 Route::post('images/{property_id}', 'ImagesController@add');
+
+# Book the property
+Route::post('bookNow/', 'AdminController@bookNow');

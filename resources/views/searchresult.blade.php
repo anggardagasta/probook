@@ -165,14 +165,14 @@
                                                 <small>{{$property->state}}, {{$property->country}}</small>
                                             </h3>
                                             <p>{{$property->description}}</p>
-                                            <form>
+                                            <form method="POST" action="{{URL::to('bookNow')}}">
                                                 @if (\Auth::user())
                                                     <input type="hidden" name="id_property" value="{{$property->id}}">
                                                     <input type="hidden" name="id_user" value="{{\Auth::user()->id}}">
                                                     <label for="ci">Check In</label>
-                                                    <input type ="date" class="form-control" name="ci"/>
+                                                    <input type ="date" class="form-control" name="start_date"/>
                                                     <label for="co">Check Out</label>
-                                                    <input type ="date" class="form-control" name="co"/>
+                                                    <input type ="date" class="form-control" name="end_date"/>
                                                     <p style="padding-top: 10px;"><button type="submit" class="btn btn-warning">Book Now</button></p>
                                                 @endif
                                             </form>

@@ -195,4 +195,52 @@ class BookModel
         }
 
     }
+
+    /**
+     * @param array $field
+     * @return mixed
+     * @throws \Exception
+     */
+    public function insertBooking($field)
+    {
+        try {
+            $field['created_at'] = \date("Y-m-d H:i:s");
+            $field['updated_at'] = \date("Y-m-d H:i:s");
+            return \DB::table('book')->insert($field);
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getUserById($id)
+    {
+        try {
+            return \DB::table('user')
+                ->where('id', '=', $id)
+                ->first();
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getPropertyById($id)
+    {
+        try {
+            return \DB::table('property')
+                ->where('id', '=', $id)
+                ->first();
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+    }
 }
