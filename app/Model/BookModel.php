@@ -108,7 +108,7 @@ class BookModel
     public function getDistinctPrice()
     {
         try {
-            return \DB::table('property')->distinct()->get(['price']);
+            return \DB::table('property')->distinct()->orderBy('price')->get(['price']);
         } catch (\Exception $ex) {
             throw $ex;
         }

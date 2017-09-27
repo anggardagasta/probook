@@ -137,7 +137,7 @@ class HomeController implements ControllerInterface
             if (\Auth::user()->verified == 'no') {
 
                 \Auth::logout();
-                return 'Please activate your account';
+                return redirect()->back()->with("error", "Waiting admin to verify your account");
             } else {
                 if (\Auth::user()->type == 'admin') {
                     return redirect()->route('admin_user');
